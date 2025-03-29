@@ -5,10 +5,127 @@ export default function Gallery() {
   const scrollContainer1 = useRef<HTMLDivElement | null>(null);
   const scrollContainer2 = useRef<HTMLDivElement | null>(null);
   
+  function getWindowDimensions() {
+    const { innerWidth: vwidth, innerHeight: vheight } = window;
+    return {
+      vwidth,
+      vheight
+    };
+  }
+
+  function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions());
+      }
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return windowDimensions;
+  }
+
+  const {vheight, vwidth} = useWindowDimensions();
+
+  const rightArrow = document.getElementById("right-arrow");
+
+  useEffect(() => {
+    const leftArrow = document.getElementById("left-arrow");
+    console.log("click")
+    const handleLeftClick = () => {
+      gsap.to([scrollContainer1.current, scrollContainer2.current], {
+        scrollLeft: (index) =>
+          index === 0
+            ? scrollContainer1.current?.scrollLeft - vwidth
+            : scrollContainer2.current?.scrollLeft - vwidth,
+        duration: 2,
+        ease: "power2.out",
+      });
+    };
+  
+    if (leftArrow) {
+      leftArrow.addEventListener("click", handleLeftClick);
+    }
+  
+    return () => {
+      if (leftArrow) {
+        leftArrow.removeEventListener("click", handleLeftClick);
+      }
+    };
+  }, [vwidth]);
+
+  useEffect(() => {
+    const rightArrow = document.getElementById("right-arrow");
+    console.log("click")
+    const handleLeftClick = () => {
+      gsap.to([scrollContainer1.current, scrollContainer2.current], {
+        scrollLeft: (index) =>
+          index === 0
+            ? scrollContainer1.current?.scrollLeft - vwidth
+            : scrollContainer2.current?.scrollLeft - vwidth,
+        duration: 2,
+        ease: "power2.out",
+      });
+    };
+  
+    if (rightArrow) {
+      rightArrow.addEventListener("click", handleLeftClick);
+    }
+  
+    return () => {
+      if (rightArrow) {
+          rightArrow.removeEventListener("click", handleLeftClick);
+      }
+    };
+  }, [vwidth]);
+
+  const adjustThumbnailSize = () => {
+    const scrollContainers = [scrollContainer1.current, scrollContainer2.current];
+
+    scrollContainers.forEach((container) => {
+      if (!container) return;
+
+      const thumbnails = container.querySelectorAll('.thumbnail');
+      const containerRect = container.getBoundingClientRect();
+      const containerCenterX = containerRect.left + containerRect.width / 2;
+
+      thumbnails.forEach((thumbnail) => {
+        const thumbnailRect = thumbnail.getBoundingClientRect();
+        const thumbnailCenterX = thumbnailRect.left + thumbnailRect.width / 2;
+        const distance = Math.abs(containerCenterX - thumbnailCenterX);
+        const maxDistance = containerRect.width / 2;
+
+        //calculate scale based on the distance
+        //const scale = Math.max(0.45, Math.sin(1 - distance / maxDistance));
+        //scaling based on gaussian curve
+        let scale = Math.max(0.2, gaussian(0.7*(1 - distance / maxDistance), 1, 0.7));
+        const height = 600 * scale;
+        const width = 460 * scale;
+
+        //apply width and height based on scale
+        thumbnail.style.width = `${width}px`;
+        thumbnail.style.height = `${height}px`;
+      });
+    });
+  };
+
+  //run on load, so objects are alr that size
+  useEffect(() => {
+    let ignore = false;
+    
+    if (!ignore) {
+      adjustThumbnailSize();
+    }
+    return () => { ignore = true; }
+  },[]);
+
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault();
-      const scrollSpeed = 5;
+      const scrollSpeed = 8;
       const delta = event.deltaY * scrollSpeed;
 
       gsap.to([scrollContainer1.current, scrollContainer2.current], {
@@ -16,8 +133,8 @@ export default function Gallery() {
           index === 0
             ? scrollContainer1.current?.scrollLeft + delta
             : scrollContainer2.current?.scrollLeft + delta,
-        duration: 1,
-        ease: 'power1.out',
+        duration: 2,
+        ease: 'power2.out',
       });
     };
 
@@ -38,33 +155,6 @@ export default function Gallery() {
   }, []);
 
   useEffect(() => {
-    const adjustThumbnailSize = () => {
-      const scrollContainers = [scrollContainer1.current, scrollContainer2.current];
-
-      scrollContainers.forEach((container) => {
-        if (!container) return;
-
-        const thumbnails = container.querySelectorAll('.thumbnail');
-        const containerRect = container.getBoundingClientRect();
-        const containerCenterX = containerRect.left + containerRect.width / 2;
-
-        thumbnails.forEach((thumbnail) => {
-          const thumbnailRect = thumbnail.getBoundingClientRect();
-          const thumbnailCenterX = thumbnailRect.left + thumbnailRect.width / 2;
-          const distance = Math.abs(containerCenterX - thumbnailCenterX);
-          const maxDistance = containerRect.width / 2;
-
-          //calculate scale based on the distance
-          const scale = Math.max(0.6, Math.sin(1 - distance / maxDistance));
-          const size = 250 * scale;
-
-          //apply width and height based on scale
-          thumbnail.style.width = `${size}px`;
-          thumbnail.style.height = `${size}px`;
-        });
-      });
-    };
-
     const handleScroll = () => {
       adjustThumbnailSize();
     };
@@ -87,44 +177,55 @@ export default function Gallery() {
   }, []);
 
   return (
-    <div className="flex flex-col w-[100vw] align-center">
+    <div className="flex flex-col w-[100vw] align-center justify-center">
       {/* top scroll */}
-      <div className="gallery-wrap flex align-center items-center justify-center ml-[200px] mr-[200px]">
+      {/* dynamically calculated margins so always aligned with timeline */}
+      <div className="gallery-wrap flex align-center items-center justify-center" style={{marginLeft: `${0.048*vwidth + 70}px`, marginRight: `${0.048*vwidth + 70}px`}}>
         <div
           ref={scrollContainer1}
-          className="thumbnail-gallery flex items-end w-[100vw] overflow-x-scroll h-[36vh] pb-3"
+          className="thumbnail-gallery flex items-end w-[100vw] overflow-x-scroll h-[50vh] pb-4"
         >
-          <div className="items-end p-[10px] gap-[20px] grid grid-flow-col grid-cols-[auto auto auto auto auto auto auto]">
-            {Array.from({ length: 13 }).map((_, index) => (
-              <span
-                key={index}
-                className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"
-              >
-                <div className="z-3 w-[0.4rem] h-[275px] bg-black"></div>
-              </span>
+          <div className="items-end p-[10px] gap-[40px] grid grid-flow-col grid-cols-[auto auto auto auto auto auto auto]">
+            {Array.from({ length: 13 }).map((e, index) => (
+              <div className="relative flex justify-center align-end">
+                <div className="absolute z-1 w-[0.4rem] h-[500px] bg-black"></div>
+                <span
+                  key={index}
+                  className="z-2 thumbnail flex flex-row justify-center items-center rounded-[28px] bg-white border-[3px]"
+                >
+                </span>
+              </div>
             ))}
           </div>
         </div>
       </div>
 
       {/* bottom scroll */}
-      <div className="gallery-wrap flex align-center items-center justify-center ml-[200px] mr-[200px]">
+      <div className="gallery-wrap flex align-end items-end justify-end" style={{marginLeft: `${0.048*vwidth + 70}px`, marginRight: `${0.048*vwidth + 70}px`}}>
         <div
           ref={scrollContainer2}
-          className="thumbnail-gallery flex w-[100vw] overflow-x-scroll h-[36vh] pt-3"
+          className="thumbnail-gallery flex w-[100vw] overflow-x-scroll h-[50vh] pt-4"
         >
-          <div className="p-[10px] gap-[20px] grid grid-flow-col grid-cols-[auto auto auto auto auto] ml-[135px] mr-[135px]">
-            {Array.from({ length: 12 }).map((_, index) => (
-              <span
-                key={index}
-                className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"
-              >
-                <div className="z-3 w-[0.4rem] h-[200px] bg-black mt-[-100px]"></div>
-              </span>
+          <div className="p-[10px] gap-[40px] grid grid-flow-col grid-cols-[auto auto auto auto auto] ml-[70px] mr-[70px] h-[100%]">
+            {Array.from({ length: 12 }).map((e, index) => (
+              <div className="relative flex justify-center">
+              <div className="absolute z-1 w-[0.4rem] h-[200px] bg-black top-1/2 -translate-y-1/2 mt-[-200px]"></div>
+                <span
+                  key={index}
+                  className="z-2 thumbnail flex flex-row justify-center items-center rounded-[28px] bg-white border-[3px]"
+                >
+                </span>
+              </div>
             ))}
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function gaussian(x, mean, stdDev) {
+  const exponent = -0.5 * Math.pow((x - mean) / stdDev, 2);
+  const coefficient = 1 / (stdDev * Math.sqrt(2 * Math.PI));
+  return coefficient * Math.exp(exponent);
 }
