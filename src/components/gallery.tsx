@@ -95,7 +95,7 @@ export default function Gallery() {
           ref={scrollContainer1}
           className="thumbnail-gallery flex items-end w-[100vw] overflow-x-scroll h-[36vh] pb-3"
         >
-          <div className="items-end p-[10px] gap-[20px] grid grid-flow-col grid-cols-[auto auto auto auto auto auto auto]">
+          <div className="items-end p-[10px] gap-[40px] grid grid-flow-col grid-cols-[auto auto auto auto auto auto auto]">
             {Array.from({ length: 13 }).map((_, index) => (
               <span
                 key={index}
@@ -114,7 +114,7 @@ export default function Gallery() {
           ref={scrollContainer2}
           className="thumbnail-gallery flex w-[100vw] overflow-x-scroll h-[36vh] pt-3"
         >
-          <div className="p-[10px] gap-[20px] grid grid-flow-col grid-cols-[auto auto auto auto auto] ml-[135px] mr-[135px]">
+          <div className="p-[10px] gap-[40px] grid grid-flow-col grid-cols-[auto auto auto auto auto] ml-[135px] mr-[135px]">
             {Array.from({ length: 12 }).map((_, index) => (
               <span
                 key={index}
