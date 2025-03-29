@@ -38,19 +38,20 @@ export default function Gallery() {
       <div className="gallery-wrap flex align-center items-center justify-center ml-[100px] mr-[100px]">
         <div ref={scrollContainer1} className="thumbnail-gallery flex items-center w-[100vw] overflow-x-scroll h-[36vh] pb-3">
           <div className="p-[10px] gap-[20px] grid grid-flow-col grid-cols-[auto auto auto auto auto auto auto]">
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[275px] bg-black'></div></span>
           </div>
         </div>
       </div>
@@ -59,18 +60,17 @@ export default function Gallery() {
       <div className="gallery-wrap flex align-center items-center justify-center ml-[100px] mr-[100px]">
         <div ref={scrollContainer2} className="thumbnail-gallery flex items-center w-[100vw] overflow-x-scroll h-[36vh] pt-3">
           <div className="p-[10px] gap-[20px] grid grid-flow-col grid-cols-[auto auto auto auto auto] ml-[135px] mr-[135px]">
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
-            <span className="h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
+            <span className="thumbnail h-[250px] w-[250px] bg-black flex flex-row justify-center align-center"><div className='z-3 w-[0.4rem] h-[270px] bg-black mt-[-100px]'></div></span>
           </div>
         </div>
       </div>
