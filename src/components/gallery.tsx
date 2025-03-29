@@ -4,7 +4,57 @@ import gsap from 'gsap';
 export default function Gallery() {
   const scrollContainer1 = useRef<HTMLDivElement | null>(null);
   const scrollContainer2 = useRef<HTMLDivElement | null>(null);
-  
+
+  const [mouseX, setMouseX] = useState(0); // Track mouse X position
+
+  // Update mouse position on every mouse move event
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      setMouseX(event.clientX); // Update mouse X position
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  useEffect(() => {
+    const adjustThumbnailSize = () => {
+      const scrollContainers = [scrollContainer1.current, scrollContainer2.current];
+
+      scrollContainers.forEach((container) => {
+        if (!container) return;
+
+        const thumbnails = container.querySelectorAll('.thumbnail');
+        const containerRect = container.getBoundingClientRect();
+
+        thumbnails.forEach((thumbnail) => {
+          const thumbnailRect = thumbnail.getBoundingClientRect();
+          const thumbnailCenterX = thumbnailRect.left + thumbnailRect.width / 2;
+          const distanceToMouse = Math.abs(mouseX - thumbnailCenterX); // Distance to mouse
+
+          // Calculate scale based on the distance to the mouse
+          const maxDistance = containerRect.width / 2;
+          const scale = Math.max(0.6, Math.sin(1 - distanceToMouse / maxDistance)); // Scale calculation
+          const size = 300 * scale; // Base size of the thumbnail
+
+          // Apply GSAP animation to resize the thumbnails
+          gsap.to(thumbnail, {
+            width: `${size}px`,
+            height: `${size}px`,
+            duration: 0.3,
+            ease: 'power1.out',
+          });
+        });
+      });
+    };
+
+    adjustThumbnailSize(); // Adjust size immediately when the mouse moves
+
+  }, [mouseX]); // Recalculate every time mouseX changes
+
   useEffect(() => {
     const handleWheel = (event: WheelEvent) => {
       event.preventDefault();
@@ -33,55 +83,6 @@ export default function Gallery() {
       if (container1 && container2) {
         container1.removeEventListener('wheel', handleWheel);
         container2.removeEventListener('wheel', handleWheel);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    const adjustThumbnailSize = () => {
-      const scrollContainers = [scrollContainer1.current, scrollContainer2.current];
-
-      scrollContainers.forEach((container) => {
-        if (!container) return;
-
-        const thumbnails = container.querySelectorAll('.thumbnail');
-        const containerRect = container.getBoundingClientRect();
-        const containerCenterX = containerRect.left + containerRect.width / 2;
-
-        thumbnails.forEach((thumbnail) => {
-          const thumbnailRect = thumbnail.getBoundingClientRect();
-          const thumbnailCenterX = thumbnailRect.left + thumbnailRect.width / 2;
-          const distance = Math.abs(containerCenterX - thumbnailCenterX);
-          const maxDistance = containerRect.width / 2;
-
-          //calculate scale based on the distance
-          const scale = Math.max(0.6, Math.sin(1 - distance / maxDistance));
-          const size = 250 * scale;
-
-          //apply width and height based on scale
-          thumbnail.style.width = `${size}px`;
-          thumbnail.style.height = `${size}px`;
-        });
-      });
-    };
-
-    const handleScroll = () => {
-      adjustThumbnailSize();
-    };
-
-    if (scrollContainer1.current) {
-      scrollContainer1.current.addEventListener('scroll', handleScroll);
-    }
-    if (scrollContainer2.current) {
-      scrollContainer2.current.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (scrollContainer1.current) {
-        scrollContainer1.current.removeEventListener('scroll', handleScroll);
-      }
-      if (scrollContainer2.current) {
-        scrollContainer2.current.removeEventListener('scroll', handleScroll);
       }
     };
   }, []);
