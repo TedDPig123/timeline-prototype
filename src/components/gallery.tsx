@@ -39,8 +39,8 @@ export default function Gallery() {
       gsap.to([scrollContainer1.current, scrollContainer2.current], {
         scrollLeft: (index) =>
           index === 0
-            ? scrollContainer1.current?.scrollLeft - vwidth
-            : scrollContainer2.current?.scrollLeft - vwidth,
+            ? scrollContainer1.current?.scrollLeft - 0.5*(vwidth - 2*(0.048*vwidth + 70))
+            : scrollContainer2.current?.scrollLeft - 0.5*(vwidth - 2*(0.048*vwidth + 70)),
         duration: 2,
         ease: "power2.out",
       });
@@ -64,8 +64,8 @@ export default function Gallery() {
       gsap.to([scrollContainer1.current, scrollContainer2.current], {
         scrollLeft: (index) =>
           index === 0
-            ? scrollContainer1.current?.scrollLeft - vwidth
-            : scrollContainer2.current?.scrollLeft - vwidth,
+            ? scrollContainer1.current?.scrollLeft + 0.5*(vwidth - 2*(0.048*vwidth + 70)) //half the length of the gallery display
+            : scrollContainer2.current?.scrollLeft + 0.5*(vwidth - 2*(0.048*vwidth + 70)),
         duration: 2,
         ease: "power2.out",
       });
@@ -176,6 +176,11 @@ export default function Gallery() {
     };
   }, []);
 
+  //make thumbnail size responsive
+  useEffect(()=>{
+    adjustThumbnailSize();
+  }, [vwidth]);
+
   return (
     <div className="flex flex-col w-[100vw] align-center justify-center">
       {/* top scroll */}
@@ -185,14 +190,16 @@ export default function Gallery() {
           ref={scrollContainer1}
           className="thumbnail-gallery flex items-end w-[100vw] overflow-x-scroll h-[50vh] pb-4"
         >
-          <div className="items-end p-[10px] gap-[40px] grid grid-flow-col grid-cols-[auto auto auto auto auto auto auto]">
-            {Array.from({ length: 13 }).map((e, index) => (
+          <div className="items-end p-[10px] gap-[40px] grid grid-flow-col grid-cols-[auto auto auto auto auto auto auto]"
+          style={{marginLeft: `${0.3*vwidth}px`, marginRight: `${0.3*vwidth}px`}}>
+            {Array.from({ length: 25 }).map((e, index) => (
               <div className="relative flex justify-center align-end">
                 <div className="absolute z-1 w-[0.4rem] h-[500px] bg-black"></div>
                 <span
                   key={index}
                   className="z-2 thumbnail flex flex-row justify-center items-center rounded-[28px] bg-white border-[3px]"
                 >
+                  {index}
                 </span>
               </div>
             ))}
@@ -206,14 +213,16 @@ export default function Gallery() {
           ref={scrollContainer2}
           className="thumbnail-gallery flex w-[100vw] overflow-x-scroll h-[50vh] pt-4"
         >
-          <div className="p-[10px] gap-[40px] grid grid-flow-col grid-cols-[auto auto auto auto auto] ml-[70px] mr-[70px] h-[100%]">
-            {Array.from({ length: 12 }).map((e, index) => (
+          <div className="p-[10px] gap-[40px] grid grid-flow-col grid-cols-[auto auto auto auto auto] ml-[70px] mr-[70px] h-[100%]"
+          style={{marginLeft: `${0.3*vwidth + 70}px`, marginRight: `${0.3*vwidth +70}px`}}>
+            {Array.from({ length: 24 }).map((e, index) => (
               <div className="relative flex justify-center">
               <div className="absolute z-1 w-[0.4rem] h-[200px] bg-black top-1/2 -translate-y-1/2 mt-[-200px]"></div>
                 <span
                   key={index}
                   className="z-2 thumbnail flex flex-row justify-center items-center rounded-[28px] bg-white border-[3px]"
                 >
+                  {index}
                 </span>
               </div>
             ))}
