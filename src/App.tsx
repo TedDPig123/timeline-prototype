@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import Gallery from './components/gallery';
 import Timeline from './components/timeline-bar';
